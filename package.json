@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "main": "app.js",
   "license": "MIT",
+  "scripts": {
+    "start": "node app.js"
+  },
   "dependencies": {
     "axios": "^0.18.0",
-    "cheerio": "^1.0.0-rc.2",
     "mongodb": "^3.1.13",
-    "mongodb-runner": "^4.7.1",
     "parse-server": "^3.1.3"
   }
 }
