@@ -1,0 +1,6 @@
+{
+  "serverURL":"mongodb://127.0.0.1:27017/parse",
+  "appId": "com.node.douyu_crawlers",
+  "masterKey": "myMasterKey",
+  "appName": "douyu_crawlers"
+}

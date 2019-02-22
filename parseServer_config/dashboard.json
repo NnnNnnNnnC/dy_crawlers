@@ -1,0 +1,10 @@
+{
+  "apps": [
+    {
+      "serverURL": "http://localhost:1337/parse",
+      "appId": "com.node.douyu_crawlers",
+      "masterKey": "myMasterKey",
+      "appName": "douyu_crawlers"
+    }
+  ]
+}
