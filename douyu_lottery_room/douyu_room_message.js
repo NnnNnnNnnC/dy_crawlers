@@ -15,10 +15,6 @@ const axios_1 = require("axios");
 class douyu_room_message {
     constructor() {
     }
-    static main(url_list) {
-        //const fn=new douyu_room_message();
-        //fn.room_lottery_message(url_list)
-    }
     static room_lottery_message(url_list) {
         const api = 'https://www.douyu.com/member/lottery/activity_info';
         return url_list.map((url) => __awaiter(this, void 0, void 0, function* () {

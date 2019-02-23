@@ -5,10 +5,6 @@ import axios from 'axios'
 export  class douyu_room_message {
     constructor() {
     }
-    public static main(url_list){
-        //const fn=new douyu_room_message();
-        //fn.room_lottery_message(url_list)
-    }
     public static room_lottery_message(url_list: Array<string>) {
         const api='https://www.douyu.com/member/lottery/activity_info';
         return url_list.map(async (url)=>{

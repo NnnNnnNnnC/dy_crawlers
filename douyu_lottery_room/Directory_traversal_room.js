@@ -26,7 +26,7 @@ class Directory_traversal_room {
             process.send(false);
             setInterval(() => {
                 return this.main();
-            }, 1000);
+            }, 10000);
         });
     }
     //单次访问URL获取JSON信息
