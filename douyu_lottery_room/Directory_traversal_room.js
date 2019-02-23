@@ -23,7 +23,6 @@ class Directory_traversal_room {
                 let room_number = this.lottery_room_number(lottery_room);
                 process.send(room_number);
             }
-            process.send(false);
             setInterval(() => {
                 return this.main();
             }, 1000);

@@ -6,13 +6,12 @@ export class Directory_traversal_room{
     public static async main(){
         let pgcnt=2;
         for(let page=1;page<pgcnt;page++){
-            let message=await this.get_room_list(page)
+            let message=await this.get_room_list(page);
             pgcnt=message.data.pgcnt;
             let lottery_room=this.get_lottery_room(message.data.rl);
             let room_number=this.lottery_room_number(lottery_room);
             process.send(room_number);
         }
-        process.send(false)
         setInterval(()=>{
             return this.main()
         },1000)

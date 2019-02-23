@@ -13,12 +13,9 @@ export  class douyu_room_message {
         const api='https://www.douyu.com/member/lottery/activity_info';
         return url_list.map(async (url)=>{
             let message=await axios.get(`${api}?room_id=${url}`);
-            let data=message.data;
-            return{
-                name:data.data.prize_name,
-                room_id:data.data.room_id
-            }
+            return message.data.data
         })
+
     }
     private async sizer_message_lottery(obj:Object){
 

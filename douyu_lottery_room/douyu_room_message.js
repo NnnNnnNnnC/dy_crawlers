@@ -23,11 +23,7 @@ class douyu_room_message {
         const api = 'https://www.douyu.com/member/lottery/activity_info';
         return url_list.map((url) => __awaiter(this, void 0, void 0, function* () {
             let message = yield axios_1.default.get(`${api}?room_id=${url}`);
-            let data = message.data;
-            return {
-                name: data.data.prize_name,
-                room_id: data.data.room_id
-            };
+            return message.data.data;
         }));
     }
     sizer_message_lottery(obj) {

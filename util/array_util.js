@@ -38,6 +38,30 @@ class array_util {
             });
         });
     }
+    //数组取不相交集合，数组合并不相交元素
+    static different_merge_array(index, refer) {
+        return index.filter((msg) => {
+            for (let i in refer) {
+                if (JSON.stringify(msg) === JSON.stringify(refer[i])) {
+                    return false;
+                }
+            }
+            return true;
+        }).concat(refer);
+    }
+    //index 数组移除目标字符串中相同元素，并保留不同元素
+    static arr_0(index, refer) {
+        let a = [].concat(index.filter((msg) => {
+            if (JSON.stringify(msg) === refer) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }));
+        a.push(JSON.parse(refer));
+        return a;
+    }
 }
 exports.array_util = array_util;
 //# sourceMappingURL=array_util.js.map

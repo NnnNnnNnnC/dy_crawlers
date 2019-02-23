@@ -1,6 +1,6 @@
 const Parse=require('parse/node');
 Parse.initialize("com.node.douyu_crawlers",);
-Parse.serverURL = 'http://123.0.0.1:1337/parse'
+Parse.serverURL = 'http://localhost:1337/parse';
 const GameScore = Parse.Object.extend("GameScore");
 const gameScore = new GameScore();
 gameScore.set("score", 123123);
