@@ -18,72 +18,50 @@ const lottery_url_file = path.join(__dirname, 'Directory_traversal_room.js');
 const lottery_url = cp.fork(lottery_url_file);
 class process_emit_lottery {
     constructor() {
-        //抽奖进行对比的目标数组
         this.arr = [];
-        //抽奖缓存数组
         this.arr_1 = [];
     }
     static main() {
         return __awaiter(this, void 0, void 0, function* () {
             const fn = new process_emit_lottery();
-            yield fn.get_lottery_url();
+            yield fn.save_lottery_message();
         });
     }
-    get_lottery_url() {
+    //保存获取的抽奖信息
+    save_lottery_message() {
         return __awaiter(this, void 0, void 0, function* () {
             lottery_url.on('message', (msg) => __awaiter(this, void 0, void 0, function* () {
-                if (msg === false) {
-                    if (this.arr_1.length != 0) {
-                        //this.arr.splice(0,this.arr.length);
-                        //this.arr=[].concat(this.arr_1);
-                    }
-                    this.arr = this.arr.concat(this.arr_1);
-                    this.arr_1.splice(0, this.arr_1.length);
-                }
-                else {
-                    let data = douyu_room_message_1.douyu_room_message.room_lottery_message(msg);
-                    for (let i in data) {
-                        yield this.lottery_activity_id(yield data[i]);
+                let data = douyu_room_message_1.douyu_room_message.room_lottery_message(msg);
+                for (let i in data) {
+                    //await this.lottery_activity_id(await data[i])
+                    let msg = yield data[i];
+                    let query_msg = yield this.query_database_lottery(msg.activity_id);
+                    if (query_msg.length === 0) {
+                        yield this.save_database_lottery(msg);
                     }
                 }
             }));
         });
     }
     //保存抽奖房间数据
-    save_lottery_message(data) {
+    save_database_lottery(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            let arr = Object.keys(data);
-            if (arr.length != 0) {
-                const lottery_room = Parse.Object.extend("lottery_room");
-                const lottery = new lottery_room();
-                for (let i in data) {
-                    lottery.set(i, data[i]);
-                }
-                return lottery.save();
+            const lottery_room = Parse.Object.extend("lottery_room");
+            const lottery = new lottery_room();
+            for (let i in data) {
+                lottery.set(i, data[i]);
             }
+            return lottery.save();
         });
     }
-    //抽奖策略 抽奖号码对比移除同样的抽奖room_list activity_id 返回目标数组不存在的
-    lottery_activity_id(refer) {
+    //查找抽奖房间编号
+    query_database_lottery(msg) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (this.arr.length === 0) {
-                this.arr_1.push(refer);
-                yield this.save_lottery_message(refer);
-            }
-            else {
-                let g = this.arr.filter(msg => {
-                    if (msg.activity_id === refer.activity_id) {
-                        return false;
-                    }
-                    else {
-                        return true;
-                    }
-                });
-                if (g.length != this.arr.length) {
-                    yield this.save_lottery_message(refer);
-                    this.arr_1.push(refer);
-                }
-            }
+            const lottery_room = Parse.Object.extend("lottery_room");
+            const query = new Parse.Query(lottery_room);
+            query.equalTo('activity_id', msg);
+            const results = yield query.find();
+            return results;
         });
     }
 }
